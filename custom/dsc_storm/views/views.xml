@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="dsc_storm.list">
+      <field name="name">DSC Storm List</field>
+      <field name="model">dsc.storm</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="dsc_storm.action_window">
+      <field name="name">DSC Strom App</field>
+      <field name="res_model">dsc.storm</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+
+    <record model="ir.actions.server" id="dsc_storm.action_server">
+      <field name="name">dsc_storm server</field>
+      <field name="model_id" ref="model_dsc_storm"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="DSC Storm" id="dsc_storm.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Cloud" id="dsc_storm.menu_1" parent="dsc_storm.menu_root"/>
+    <menuitem name="Nine" id="dsc_storm.menu_2" parent="dsc_storm.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="List" id="dsc_storm.menu_1_list" parent="dsc_storm.menu_1"
+              action="dsc_storm.action_window"/>
+    <menuitem name="Server to list" id="dsc_storm" parent="dsc_storm.menu_2"
+              action="dsc_storm.action_server"/>
+
+  </data>
+</odoo>

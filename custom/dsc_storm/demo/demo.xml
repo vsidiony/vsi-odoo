@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+
+          <record id="object0" model="dsc.storm">
+            <field name="name">Black</field>
+            <field name="value">0</field>
+          </record>
+
+          <record id="object1" model="dsc.storm">
+            <field name="name">Blue</field>
+            <field name="value">10</field>
+          </record>
+
+          <record id="object2" model="dsc.storm">
+            <field name="name">Red</field>
+            <field name="value">20</field>
+          </record>
+
+          <record id="object3" model="dsc.storm">
+            <field name="name">Yellow</field>
+            <field name="value">30</field>
+          </record>
+
+          <record id="object4" model="dsc.storm">
+            <field name="name">Green</field>
+            <field name="value">40</field>
+          </record>
+
+    </data>
+</odoo>
