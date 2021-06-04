@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="vsi_customer_invoice_form_inherited" model="ir.ui.view">
+        <field name="name">account.move.inherited</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_reference']" position="after">
+                <field name="vsi_custom_sequence"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="vsi_customer_invoice_tree_inherited" model="ir.ui.view">
+        <field name="name">account.move.inherited</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="vsi_custom_sequence"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

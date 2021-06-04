@@ -20,14 +20,16 @@
     'sequence': -100,
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','mail'],
+    'depends': ['base','sale','mail','account'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'data/data.xml',
+        'data/sequenceinvoice.xml',
         'views/stormlog.xml',
         'views/stormsale.xml',
+        'views/accountmove.xml',
         #'views/views.xml',
         'views/templates.xml',
         
