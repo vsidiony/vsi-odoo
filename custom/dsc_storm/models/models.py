@@ -7,10 +7,10 @@ class dsc_storm(models.Model):
     _name = 'dsc.storm'
     _description = 'DSC Storm Model'
 
-    name = fields.Char()
-    value = fields.Integer()
-    value2 = fields.Float(compute="_value_pc", store=True)
-    description = fields.Text()
+    name = fields.Char(string="Storm")
+    value = fields.Integer(string="Primary")
+    value2 = fields.Float(string="10 %", compute="_value_pc", store=True)
+    description = fields.Text("Desc")
 
     @api.depends('value')
     def _value_pc(self):

@@ -42,7 +42,7 @@
 
     <!-- Top menu item -->
 
-    <menuitem name="DSC Storm" id="dsc_storm.menu_root"/>
+    <menuitem name="DSC Storm" id="dsc_storm.menu_root" web_icon="dsc_storm,static/description/icon.png"/>
 
     <!-- menu categories -->
 

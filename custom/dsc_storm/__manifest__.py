@@ -17,18 +17,26 @@
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
+    'sequence': -100,
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','sale','mail'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/views.xml',
+        'data/data.xml',
+        'views/stormlog.xml',
+        'views/stormsale.xml',
+        #'views/views.xml',
         'views/templates.xml',
+        
     ],
     # only loaded in demonstration mode
     # 'demo': [
     #     'demo/demo.xml',
     # ],
+    'installable': True,
+    'application': True,
+    'auto_install': True,
 }
