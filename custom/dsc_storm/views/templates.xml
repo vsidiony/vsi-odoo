@@ -1,24 +1,98 @@
 <odoo>
-    <data>
+  <template id="listing">
+    <ul>
+      <li t-foreach="objects" t-as="object">
+        <a t-attf-href="#{ root }/objects/#{ object.id }">
+          <t t-esc="object.display_name"/>
+        </a>
+      </li>
+    </ul>
+  </template>
+  <template id="object">
+    <h1><t t-esc="object.display_name"/></h1>
+    <dl>
+      <t t-foreach="object._fields" t-as="field">
+        <dt><t t-esc="field"/></dt>
+        <dd><t t-esc="object[field]"/></dd>
+      </t>
+    </dl>
+  </template>
 
-        <template id="listing">
-          <ul>
-            <li t-foreach="objects" t-as="object">
-              <a t-attf-href="#{ root }/objects/#{ object.id }">
-                <t t-esc="object.display_name"/>
-              </a>
-            </li>
-          </ul>
-        </template>
-        <template id="object">
-          <h1><t t-esc="object.display_name"/></h1>
-          <dl>
-            <t t-foreach="object._fields" t-as="field">
-              <dt><t t-esc="field"/></dt>
-              <dd><t t-esc="object[field]"/></dd>
+  <template id="storm_logs">
+    <t t-call="website.layout">
+        <title>DSC Web Application List</title>
+        <div class="oe_structure">
+          <div class="container">
+            <t t-foreach="logs" t-as="log">
+              <p><t t-esc="log.id"/> - <t t-esc="log.name" /> - <t t-esc="log.storm_type" /></p>
             </t>
-          </dl>
-        </template>
+          </div>
+        </div>        
+    </t>
+  </template>
+  
+<template id="storm_logs_table">
+    <t t-call="website.layout">
 
-    </data>
+        <title>DSC Web Application Table</title>
+        <div class="oe_structure">
+          <div class="container">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <td>ID</td>
+                  <td>Data</td>
+                  <td>Type</td>
+                  <td>Action</td>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="logs" t-as="log">
+                  <tr>
+                    <td><t t-esc="log.id"/></td>
+                    <td><t t-esc="log.name" /></td>
+                    <td><t t-esc="log.storm_type" /></td>
+                    <td> <a t-attf-href="/dsc_storm/storm_logs_details/#{log.id}">View Details</a></td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+           
+          </div>
+        </div>        
+    </t>
+  </template>
+  
+  <template id="storm_logs_details">
+    <t t-call="website.layout">
+        <t t-set="title">Storm Log Details</t>
+        <div class="oe_structure"/>
+        <div class="oe_structure">
+            <div class="container">
+              <table class="table table-bordered">
+                <tr>
+                  <td>Id</td><td><t t-esc="log.id"/></td>
+                </tr>
+                <tr>
+                  <td>Name</td><td><t t-esc="log.name"/></td>
+                </tr>
+                <tr>
+                  <td>Storm Code</td><td><t t-esc="log.storm_code"/></td>
+                </tr>
+                <tr>
+                  <td>Storm Type</td><td><t t-esc="log.storm_type"/></td>
+                </tr>
+                <tr>
+                  <td>Start Date</td><td><t t-esc="log.start_date"/></td>
+                </tr>
+                <tr>
+                  <td>Status</td><td><t t-esc="log.state"/></td>
+                </tr>
+              </table>
+            </div>
+        </div>
+        <div class="oe_structure"/>
+    </t>
+  </template>
+
 </odoo>

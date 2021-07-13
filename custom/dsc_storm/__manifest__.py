@@ -20,18 +20,22 @@
     'sequence': -100,
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','mail','account'],
+    'depends': ['base','sale','mail','account','website'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'data/data.xml',
-        'data/sequenceinvoice.xml',
+        #'data/sequenceinvoice.xml',
         'views/stormlog.xml',
-        'views/stormsale.xml',
-        'views/accountmove.xml',
+        #'views/stormsale.xml',
+        # 'views/hremployee.xml',
+        #'views/accountmove.xml',
         #'views/views.xml',
         'views/templates.xml',
+        'views/stormlog_form.xml',
+        'reports/storm.xml',
+        'reports/report.xml',
         
     ],
     # only loaded in demonstration mode

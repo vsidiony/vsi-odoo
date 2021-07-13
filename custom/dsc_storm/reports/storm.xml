@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <template id="report_storm_logs">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+               <h2>Storm Log</h2>
+            </t>
+        </t>
+    </template>   -->
+     <template id="report_storm">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                        <h2>Storm Log Report</h2>
+                        <div> Name : <t t-esc="doc.name" /> </div>
+                        <div> Code : <t t-esc="doc.storm_code" /> </div>
+                        <div> Storm Type : <t t-esc="doc.storm_type" /> </div>                
+                </t>                
+            </t>
+        </t>
+    </template>  
+</odoo>

@@ -123,7 +123,7 @@
 
         <menuitem id="dsc_storm.log" name="Storm Log" parent="dsc_storm.log_root" action="dsc_storm.action_window" sequence="3" />
 
-
+        <!-- <menuitem id="dsc_storm.settings" name="Settings" parent="dsc_storm.log_root" action="dsc_storm_config_settings" sequence="4" /> -->
     </data>
 </odoo>
 

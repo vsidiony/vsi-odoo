@@ -72,3 +72,35 @@ class DscStorm(http.Controller):
         print(projects)
          
         return json.dumps(projects)
+
+    @http.route('/dsc_storm/helloworld/', auth='public', website=True)
+    def helloworld(self, **kw):
+        return "Hello, world"
+
+    @http.route('/dsc_storm/storm_logs/', auth='public', website=True)
+    def storm_logs(self, **kw):
+        StormLogs = http.request.env['dsc.storm.log']
+
+        return http.request.render('dsc_storm.storm_logs', {
+            'logs': StormLogs.search([]),
+        })
+
+    @http.route('/dsc_storm/storm_logs_table/', auth='public', website=True)
+    def storm_logs_table(self, **kw):
+        StormLogs = http.request.env['dsc.storm.log']
+
+        return http.request.render('dsc_storm.storm_logs_table', {
+            'logs': StormLogs.search([]),
+        })
+
+    @http.route('/dsc_storm/<name>/', auth='public', website=True)
+    def teacher(self, name):
+        return '<h1>{}</h1>'.format(name)
+
+    @http.route('/dsc_storm/storm_logs_details/<int:id>/', auth='public', website=True)
+    def storm_logs_details(self, id):
+        StormLogs = http.request.env['dsc.storm.log']
+        
+        return http.request.render('dsc_storm.storm_logs_details', {
+            'log': StormLogs.search([('id',"=", id)]),
+        })

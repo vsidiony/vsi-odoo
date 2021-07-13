@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <report 
+    id="report_storm_log" 
+    string="Storm Log" 
+    model="dsc.storm.log" 
+    report_type="qweb-pdf" 
+    name="dsc_storm.report_storm" 
+    file="dsc_storm.report_storm" />
+
+</odoo>
