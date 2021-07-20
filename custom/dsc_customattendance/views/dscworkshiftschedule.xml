@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="view_dsc_work_shift_schedule_form" model="ir.ui.view">
+            <field name="name">dsc.work.shift.schedule.form</field>
+            <field name="model">dsc.work.shift.schedule</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                               <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>                              
+                                <field name="time_in" />
+                                <field name="time_out" />    
+                                <field name="totalwork_hours" />        
+                                <field name="minimum_overtime_minutes" />     
+                                <field name="nightdifferential_start_time" />     
+                            </group>
+                            <group>   
+                               
+                            </group>
+                        </group>                                   
+                    </sheet>   
+                </form>
+            </field>
+        </record>
+
+         <record id="view_dsc_work_shift_schedule_tree" model="ir.ui.view">
+            <field name="name">dsc.work.shift.schedule.tree</field>
+            <field name="model">dsc.work.shift.schedule</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="time_in" />
+                    <field name="time_out" />
+                    <field name="totalwork_hours" />  
+                    <field name="minimum_overtime_minutes" />     
+                    <field name="nightdifferential_start_time" />               
+                </tree>
+            </field>
+        </record>
+
+        <record id="dsc_customattendance.workshiftschedule_action_window" model="ir.actions.act_window">
+            <field name="name">DSC Custom Work Shift Schedule</field>
+            <field name="res_model">dsc.work.shift.schedule</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem 
+          id="dsc_customattendance.workshiftschedule" 
+          name="DSC Custom Work Shift Schedule" 
+          parent="hr_attendance.menu_hr_attendance_manage_attendances" 
+          action="dsc_customattendance.workshiftschedule_action_window" 
+          sequence="4" />
+    </data>
+</odoo>
