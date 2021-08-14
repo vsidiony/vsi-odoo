@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="hr.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//div[@name='employee_rights_setting_container']" position="after">
-                <h2>My Custom Settings</h2>
+                <h2>My Custom Payroll Settings</h2>
                     <div class="row mt16 o_settings_container" name="hr_employee_computation_source_setting_container">
                         <div class="col-12 col-lg-6 o_setting_box" title="Set the computation source.">
                             <div class="o_setting_left_pane">
@@ -17,6 +17,54 @@
                                 <div class="text-muted">
                                     This is my custom Source Settings
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row mt16 o_settings_container" name="night_differential_start_time_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" title="Set the night differential start time.">
+                            <div class="o_setting_left_pane">
+                                <field name="night_differential_start_time"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="night_differential_start_time"/>
+                                <div class="text-muted">
+                                    This is night differential start time (HH).
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row mt16 o_settings_container" name="night_differential_start_time_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" title="Set the night differential start time.">
+                            <div class="o_setting_right_pane">
+                                <label for="night_differential_start_time"/>
+                                <div class="text-muted">
+                                    This is night differential start time (HH).
+                                </div>
+                                 <field name="night_differential_start_time"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row mt16 o_settings_container" name="night_differential_end_time_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" title="Set the night differential end time.">
+                            <div class="o_setting_left_pane">
+                                <field name="night_differential_end_time"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="night_differential_end_time"/>
+                                <div class="text-muted">
+                                    This is night differential end time (HH).
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row mt16 o_settings_container" name="night_differential_end_time_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" title="Set the night differential end time.">
+                            <div class="o_setting_right_pane">
+                                <label for="night_differential_end_time"/>
+                                <div class="text-muted">
+                                    This is night differential end time (HH).
+                                </div>
+                                 <field name="night_differential_end_time"/>
                             </div>
                         </div>
                     </div>

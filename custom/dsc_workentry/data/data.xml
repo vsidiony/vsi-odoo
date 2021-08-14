@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Sequences for sale.order -->
+        <record id="seq_dsc_workentry" model="ir.sequence">
+            <field name="name">DSC Work Entry</field>
+            <field name="code">dsc.workentry.seq</field>
+            <field name="prefix">DSCWEN</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

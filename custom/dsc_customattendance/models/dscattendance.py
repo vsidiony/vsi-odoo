@@ -1,6 +1,6 @@
 
 from odoo import models, fields, api, exceptions, _
-from datetime import datetime
+from datetime import datetime, timedelta
 from odoo.tools import format_datetime
 
 class DscAttendance(models.Model):
@@ -35,6 +35,37 @@ class DscAttendance(models.Model):
     def action_cancelled(self):
         self.state = 'cancelled'
 
+    def action_copy_from_attendance2(self):
+        hrattendance = self.env['hr.attendance'].search([])
+
+        for attendance in hrattendance:
+            print("CHECKIN", attendance.check_in)
+            print("CHECKOUT", attendance.check_out)
+
+        timeinstring =  datetime.now().strftime("%m/%d/%Y") + ", 04:00:00"
+        timein = datetime.strptime(timeinstring, "%m/%d/%Y, %H:%M:%S")
+        self.time_in = timein
+
+        timeoutstring =  datetime.now().strftime("%m/%d/%Y") + ", 23:00:00"
+        timeout = datetime.strptime(timeoutstring, "%m/%d/%Y, %H:%M:%S")
+        self.time_out = timeout
+
+    @api.model
+    def action_copy_from_attendance(self):
+        hrattendance = self.env['hr.attendance'].search([])
+
+        for attendance in hrattendance:
+            print("CHECKIN", attendance.check_in)
+            print("CHECKOUT", attendance.check_out)
+
+        timeinstring =  datetime.now().strftime("%m/%d/%Y") + ", 04:00:00"
+        timein = datetime.strptime(timeinstring, "%m/%d/%Y, %H:%M:%S")
+        self.time_in = timein
+
+        timeoutstring =  datetime.now().strftime("%m/%d/%Y") + ", 23:00:00"
+        timeout = datetime.strptime(timeoutstring, "%m/%d/%Y, %H:%M:%S")
+        self.time_out = timeout
+
     @api.depends('time_in', 'time_out')
     def _compute_totalworked_hours(self):
         for attendance in self:
@@ -61,6 +92,10 @@ class DscAttendance(models.Model):
     def _compute_overtimeworked_hours(self):
         for attendance in self:
             if attendance.time_out and attendance.time_in:
+
+                #hremployee = self.env['hr.employee'].search(['id',"=", self.employee_id])
+                #print("RESOURCE CALENDAR ID " + hremployee.resource_calendar_id)
+
                 delta = attendance.time_out - attendance.time_in
                 totalworked_hours = delta.total_seconds() / 3600.0
                 if(totalworked_hours > 8):
@@ -74,19 +109,43 @@ class DscAttendance(models.Model):
     def _compute_nightdifferential_hours(self):
         for attendance in self:
             if attendance.time_out and attendance.time_in:
-                nd_starttime =  attendance.time_out.strftime("%m/%d/%Y") + ", 12:00:00" #UTC TIME = 8PM UTC+8
-                print("TIMENF ", nd_starttime)
+                timezone_timeoffset = timedelta(hours=8)
 
-                timeout = attendance.time_out.strftime("%H:%M:%S")
-                print("TIMEOUT ", timeout)
+                timezone_adjusted_timein = attendance.time_in + timezone_timeoffset
+                timezone_adjusted_timeout = attendance.time_out + timezone_timeoffset
+                print("TZ TIMEIN ", timezone_adjusted_timein)
+                print("TZ TIMEOUT ", timezone_adjusted_timeout)
 
-                timend = datetime.strptime(nd_starttime, "%m/%d/%Y, %H:%M:%S")
-                print("TIMEND ", timend.strftime("%H:%M:%S"))
+                #settings_night_differential_starttime = self.env['ir.config_parameter'].get_param('dsc_attendance.night_differential_start_time')
+                night_differential_start_time = self.env['ir.config_parameter'].get_param('dsc_attendance.night_differential_start_time')
+                ndsthour, ndstminute = divmod(float(night_differential_start_time), 1)
+                ndstminute *= 60
+                settings_night_differential_starttime = '{}:{}'.format(int(ndsthour), int(ndstminute))
+                
+                #settings_night_differential_endtime = self.env['ir.config_parameter'].get_param('dsc_attendance.night_differential_end_time')
+                night_differential_end_time = self.env['ir.config_parameter'].get_param('dsc_attendance.night_differential_end_time')
+                ndethour, ndetminute = divmod(float(night_differential_end_time), 1)
+                ndetminute *= 60
+                settings_night_differential_endtime = '{}:{}'.format(int(ndethour), int(ndetminute))
 
+                night_differential_starttime =  timezone_adjusted_timein.strftime("%m/%d/%Y") + ", "+ settings_night_differential_starttime +":00" #UTC TIME = 8PM UTC+8
+                dt_night_differential_starttime = datetime.strptime(night_differential_starttime, "%m/%d/%Y, %H:%M:%S")
+                print("ND_STARTTIME ", dt_night_differential_starttime)
 
-                delta = attendance.time_out - timend
-                totalnd_hours = delta.total_seconds() / 3600.0
-                if(totalnd_hours > 0):
+                timezone_adjusted_timein_nextdate = timezone_adjusted_timein + timedelta(days=1)
+                night_differential_endtime = timezone_adjusted_timein_nextdate.strftime("%m/%d/%Y") + ", "+ settings_night_differential_endtime +":00" #UTC TIME = 8PM UTC+8
+                dt_night_differential_endtime = datetime.strptime(night_differential_endtime, "%m/%d/%Y, %H:%M:%S")
+                print("ND_ENDTIME ", dt_night_differential_endtime)
+               
+                # ATTENDANCE TIMEOUT : 2021/07/20 19:00:00
+                # TIME ND : 2021/07/20 20:00:00      
+                if(timezone_adjusted_timeout > dt_night_differential_starttime and timezone_adjusted_timeout <= dt_night_differential_endtime):
+                    delta = timezone_adjusted_timeout - dt_night_differential_starttime
+                    totalnd_hours = delta.total_seconds() / 3600.0
+                    attendance.nightdifferential_hours = totalnd_hours
+                elif(timezone_adjusted_timeout > dt_night_differential_starttime and timezone_adjusted_timeout >= dt_night_differential_endtime):
+                    delta = dt_night_differential_endtime - dt_night_differential_starttime
+                    totalnd_hours = delta.total_seconds() / 3600.0
                     attendance.nightdifferential_hours = totalnd_hours
                 else:
                     attendance.nightdifferential_hours = 0 
