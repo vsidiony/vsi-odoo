@@ -119,9 +119,9 @@
         <!-- Top menu item -->
         <menuitem id="dsc_storm.menu_root" name="DSC Storm" web_icon="dsc_storm,static/description/icon.png" />
 
-        <menuitem id="dsc_storm.log_root" name="Storm Log" parent="dsc_storm.menu_root" sequence="2" />
+        <menuitem id="dsc_storm.log_root" name="Storm Logz" parent="dsc_storm.menu_root" sequence="2" />
 
-        <menuitem id="dsc_storm.log" name="Storm Log" parent="dsc_storm.log_root" action="dsc_storm.action_window" sequence="3" />
+        <menuitem id="dsc_storm.log" name="Storm Logy" parent="dsc_storm.log_root" action="dsc_storm.action_window" sequence="3" />
 
         <!-- <menuitem id="dsc_storm.settings" name="Settings" parent="dsc_storm.log_root" action="dsc_storm_config_settings" sequence="4" /> -->
     </data>
