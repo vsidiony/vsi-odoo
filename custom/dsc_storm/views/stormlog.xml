@@ -111,13 +111,13 @@
         </record>
 
         <record id="dsc_storm.action_window" model="ir.actions.act_window">
-            <field name="name">DSC Storm</field>
+            <field name="name">DSC Storm templates</field>
             <field name="res_model">dsc.storm.log</field>
             <field name="view_mode">tree,kanban,form</field>
         </record>
 
         <!-- Top menu item -->
-        <menuitem id="dsc_storm.menu_root" name="DSC Storm" web_icon="dsc_storm,static/description/icon.png" />
+        <menuitem id="dsc_storm.menu_root" name="DSC Storm Test" web_icon="dsc_storm,static/description/icon.png" />
 
         <menuitem id="dsc_storm.log_root" name="Storm Logz" parent="dsc_storm.menu_root" sequence="2" />
 
