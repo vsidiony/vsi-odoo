@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "DSC Storm",
+    'name': "DSC Storm Log",
 
     'summary': """
         DSC Storm Application""",
